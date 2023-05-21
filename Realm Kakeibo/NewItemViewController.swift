@@ -41,7 +41,7 @@ class NewItemViewController: UIViewController {
             Btn.isEnabled = false
         }else{
             Btn.isEnabled = true
-            // mutton
+            // mutto
         }
     }
 }
