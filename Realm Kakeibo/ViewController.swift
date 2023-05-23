@@ -11,7 +11,7 @@ class ViewController: UIViewController,UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
     let realm = try! Realm()
     var items: [ShoppingItem] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -32,10 +32,19 @@ class ViewController: UIViewController,UITableViewDataSource {
         cell.setCell(title: item.title, price: item.price, isMarked: item.isMarked)
         return cell
     }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            try! realm.write{
+                realm.delete(items[indexPath.row])
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadData()
+            }
+        }
+    }
+    
     func readItems() -> [ShoppingItem]{
         return Array(realm.objects(ShoppingItem.self))
     }
-    // えくすくらめーしょんまあく
     
     @IBAction func deleteAllBtn(){
         try! realm.write{
