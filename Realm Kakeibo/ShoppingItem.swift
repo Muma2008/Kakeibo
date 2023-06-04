@@ -7,7 +7,7 @@
 
 import Foundation
 import RealmSwift
-
+//リルムに保存するデータ型　persisted＝リルムの鍵
 class ShoppingItem: Object{
     @Persisted var title:String = ""
     @Persisted var price:Int = 0

@@ -7,7 +7,9 @@
 
 import UIKit
 import RealmSwift
-class ViewController: UIViewController,UITableViewDataSource {
+
+class ViewController: UIViewController,UITableViewDataSource,UIResponder,UIApplicationDelegate {
+    
     @IBOutlet var tableView: UITableView!
     let realm = try! Realm()
     var items: [ShoppingItem] = []
@@ -19,42 +21,55 @@ class ViewController: UIViewController,UITableViewDataSource {
         tableView.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
         items = readItems()
     }
+  //画面が開かれたのと同時にデータと表示を更新する
     override func viewWillAppear(_ animated: Bool) {
         items = readItems()
         tableView.reloadData()
     }
+    
+    //横スライドによる削除機能
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            try! realm.write{
+                realm.delete(items[indexPath.row])//触られたセル（のリルムデータ）を消す
+                items = readItems()//リルムデータの更新
+                tableView.deleteRows(at: [indexPath], with: .fade)//画面上押されたセルを消す
+            }
+        }
+//        items = readItems() ←important point!!
+        tableView.reloadData()
+    }
+    //画面上のセルの数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
+    //セルの中身(表示も）
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemTableViewCell
         let item: ShoppingItem = items[indexPath.row]
         cell.setCell(title: item.title, price: item.price, isMarked: item.isMarked)
         return cell
     }
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            try! realm.write{
-                realm.delete(items[indexPath.row])
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.reloadData()
-            }
-        }
-    }
     
+    //
     func readItems() -> [ShoppingItem]{
         return Array(realm.objects(ShoppingItem.self))
     }
-    
+    //セルとリルム全消しボタン
     @IBAction func deleteAllBtn(){
         try! realm.write{
             realm.deleteAll()
         }
         items = readItems()
         tableView.reloadData()
-       
     }
-
-
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, _ in
+            if granted {
+                UNUserNotificationCenter.current().delegate = self
+            }
+        }
+    }
 }
+
 

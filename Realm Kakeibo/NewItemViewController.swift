@@ -20,7 +20,7 @@ class NewItemViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
+    //ShoppingItem内のデータを別のArrayに入れてる
     @IBAction func saveBtn(){
         let item = ShoppingItem() // 新しいデータの塊を作る
         item.title = titleTextField.text ?? ""
