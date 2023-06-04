@@ -16,6 +16,13 @@ class ViewController: UIViewController,UITableViewDataSource,UIResponder,UIAppli
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let content = UNMutableNotificationContent()
+        content.title = "ここに通知のタイトル"
+        content.body = "ここに通知の本文"
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
@@ -69,6 +76,18 @@ class ViewController: UIViewController,UITableViewDataSource,UIResponder,UIAppli
                 UNUserNotificationCenter.current().delegate = self
             }
         }
+    }
+    extension AppDelegate: UNUserNotificationCenterDelegate {
+        func userNotificationCenter(
+            _ center: UNUserNotificationCenter,
+            willPresent notification: UNNotification,
+            withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+                if #available(iOS 13.0, *) {
+                    completionHandler([[.banner, .list, .sound]])
+                } else {
+                    completionHandler([[.alert, .sound]])
+                }
+            }
     }
 }
 
