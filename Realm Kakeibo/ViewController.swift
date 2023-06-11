@@ -17,12 +17,11 @@ class ViewController: UIViewController,UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         let content = UNMutableNotificationContent()
-        content.title = "やっほお"
-        content.body = "ちびやっほお"
+        content.title = "いやっふぅ"
+        content.body = "ちびいやっふぅ"
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
-        
         
         // Do any additional setup after loading the view.
         tableView.dataSource = self
