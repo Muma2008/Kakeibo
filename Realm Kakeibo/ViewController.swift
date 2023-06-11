@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class ViewController: UIViewController,UITableViewDataSource,UIResponder,UIApplicationDelegate {
+class ViewController: UIViewController,UITableViewDataSource {
     
     @IBOutlet var tableView: UITableView!
     let realm = try! Realm()
@@ -17,12 +17,13 @@ class ViewController: UIViewController,UITableViewDataSource,UIResponder,UIAppli
     override func viewDidLoad() {
         super.viewDidLoad()
         let content = UNMutableNotificationContent()
-        content.title = "ここに通知のタイトル"
-        content.body = "ここに通知の本文"
+        content.title = "やっほお"
+        content.body = "ちびやっほお"
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
-
+        
+        
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
@@ -70,25 +71,7 @@ class ViewController: UIViewController,UITableViewDataSource,UIResponder,UIAppli
         items = readItems()
         tableView.reloadData()
     }
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, _ in
-            if granted {
-                UNUserNotificationCenter.current().delegate = self
-            }
-        }
-    }
-    extension AppDelegate: UNUserNotificationCenterDelegate {
-        func userNotificationCenter(
-            _ center: UNUserNotificationCenter,
-            willPresent notification: UNNotification,
-            withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-                if #available(iOS 13.0, *) {
-                    completionHandler([[.banner, .list, .sound]])
-                } else {
-                    completionHandler([[.alert, .sound]])
-                }
-            }
-    }
+
 }
 
 
