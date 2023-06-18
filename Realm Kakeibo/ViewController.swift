@@ -7,8 +7,9 @@
 
 import UIKit
 import RealmSwift
+import SwiftUI
 
-class ViewController: UIViewController,UITableViewDataSource {
+class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
     let realm = try! Realm()
@@ -16,13 +17,13 @@ class ViewController: UIViewController,UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let content = UNMutableNotificationContent()
-        content.title = "いやっふぅ"
-        content.body = "ちびいやっふぅ"
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
-        let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
-        
+//        let content = UNMutableNotificationContent()
+//        content.title = "いやっふぅ"
+//        content.body = "ちびいやっふぅ"
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+//        let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
+//        UNUserNotificationCenter.current().add(request)
+//
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
@@ -33,7 +34,11 @@ class ViewController: UIViewController,UITableViewDataSource {
         items = readItems()
         tableView.reloadData()
     }
-    
+    //koko!!!
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let vc = UIStoryboard(name: "toEditCellViewController", bundle: nil).instantiateInitialViewController()!
+            navigationController?.pushViewController(vc, animated: true)
+        }
     //横スライドによる削除機能
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

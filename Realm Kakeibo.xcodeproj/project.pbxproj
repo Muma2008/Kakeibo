@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C374E3C2A35FBC400E9C72B /* EditCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C374E3B2A35FBC400E9C72B /* EditCellViewController.swift */; };
 		0C50FD6F2A06259B0072755C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C50FD6E2A06259B0072755C /* AppDelegate.swift */; };
 		0C50FD712A06259B0072755C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C50FD702A06259B0072755C /* SceneDelegate.swift */; };
 		0C50FD732A06259B0072755C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C50FD722A06259B0072755C /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C374E3B2A35FBC400E9C72B /* EditCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCellViewController.swift; sourceTree = "<group>"; };
 		0C50FD6B2A06259B0072755C /* Realm Kakeibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Realm Kakeibo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C50FD6E2A06259B0072755C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C50FD702A06259B0072755C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				0C50FD722A06259B0072755C /* ViewController.swift */,
 				0C50FD872A0629540072755C /* ShoppingItem.swift */,
 				0C50FD912A063C740072755C /* NewItemViewController.swift */,
+				0C374E3B2A35FBC400E9C72B /* EditCellViewController.swift */,
 				0C50FD742A06259B0072755C /* Main.storyboard */,
 				0C50FD772A06259E0072755C /* Assets.xcassets */,
 				0C50FD792A06259E0072755C /* LaunchScreen.storyboard */,
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C50FD882A0629540072755C /* ShoppingItem.swift in Sources */,
+				0C374E3C2A35FBC400E9C72B /* EditCellViewController.swift in Sources */,
 				0C50FD732A06259B0072755C /* ViewController.swift in Sources */,
 				0C50FD922A063C750072755C /* NewItemViewController.swift in Sources */,
 				0C50FD8F2A062E560072755C /* ItemTableViewCell.swift in Sources */,
